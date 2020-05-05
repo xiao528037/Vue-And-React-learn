@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiao.antd.learnantdapi.mapper.AntdMapper">
+    <select id="getAllAntd" resultType="com.xiao.antd.learnantdapi.pojo.Todo">
+        select * from todos;
+    </select>
+    <insert id="addTodo" parameterType="com.xiao.antd.learnantdapi.pojo.Todo">
+        insert into todos (title)   values(#{title})
+    </insert>
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from  todos where id=#{id}
+    </delete>
+    <select id="getCount" resultType="java.lang.Long">
+        select count(*) from todos;
+    </select>
+    <select id="getCurrentTodos" resultType="com.xiao.antd.learnantdapi.pojo.Todo">
+        select * from todos limit ${start},${pageSize};
+    </select>
+    <delete id="deleteByIds" parameterType="list">
+        delete from todos where id in
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
